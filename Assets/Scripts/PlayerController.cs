@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class PlayerController : MonoBehaviour
     private int count = 0;
     public Text countText;
     public Text winText;
+	public Text resetText;
     void Update()
     {
         rb2d = GetComponent<Rigidbody2D>();
         winText.text = "";
-        SetCountText();
+		resetText.text = "";
+		SetCountText();
     }
     void FixedUpdate()
     {
@@ -38,7 +41,13 @@ public class PlayerController : MonoBehaviour
         countText.text = "Count: " + count.ToString();
         if(count >= 6)
         {
-            winText.text = "You Win";
-        }
+            winText.text = "You Win!";
+			resetText.text = "Press the SPACE BAR to play again";
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+			}
+		}
     }
 }
